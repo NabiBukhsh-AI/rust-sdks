@@ -1,3 +1,9 @@
+## 0.2.3 (2026-10-11)
+
+### Fixes
+
+- In-flight incoming data streams now error with `AbnormalEnd` when the room closes. Before, the stream readers ended cleanly, so `read_all()` returned truncated content as if it were complete.
+
 ## 0.2.2 (2026-10-07)
 
 ### Fixes

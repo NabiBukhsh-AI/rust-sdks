@@ -1,3 +1,16 @@
+## 0.1.5 (2026-10-11)
+
+### Features
+
+- Add a capture source that ingests encoded video from a GStreamer pipeline.
+
+### Fixes
+
+- In-flight incoming data streams now error with `AbnormalEnd` when the room closes. Before, the stream readers ended cleanly, so `read_all()` returned truncated content as if it were complete.
+- Add `PeerConnection::set_bitrate` to set the send bitrate limits of a peer connection.
+- Re-apply dynacast publishing layers after every publisher answer, so that layers paused by dynacast stay paused after a renegotiation.
+- `Room::close` now leaves the room `Disconnected` and emits `RoomEvent::Disconnected` before it returns, and `Disconnected` is final: a reconnect still finishing in the background (a queued resume, or the republish after a full reconnect) can no longer bring a closed room back to `Connected` or emit `Reconnected` after `Disconnected`. Before, the room's event task could drop the engine's `Disconnected` event when the close signal won the race, so a closed room kept reporting `Connected` (or `Reconnecting`) about half the time.
+
 ## 0.1.4 (2026-10-07)
 
 ### Fixes
